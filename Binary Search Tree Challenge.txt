@@ -1,0 +1,19 @@
+
+(Hacker Rank Challenge) : Binary Search Tree
+Challenge : Write a query to find the node type of Binary Tree ordered by the value of the node. Output one of the following for each node:
+
+            Root: If node is root node.
+            Leaf: If node is leaf node.
+            Inner: If node is neither root nor leaf node.
+
+
+
+
+Solution :
+
+SELECT DISTINCT  Tree1.N,CASE WHEN Tree1.P IS NULL THEN 'Root'
+                              WHEN Tree2.P IS NOT NULL THEN 'Inner'
+                              WHEN Tree2.P IS NULL THEN 'Leaf'
+                              END AS Nodes
+        FROM BST Tree1 
+        LEFT JOIN BST Tree2 ON Tree1.N = Tree2.P
