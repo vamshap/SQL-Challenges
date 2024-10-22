@@ -1,0 +1,17 @@
+
+Challenge (New Companies) : Given the table schemas below, write a query to print the company_code, founder name, total number of lead managers, total number of senior managers, total number of managers, and total number of employees. Order your output by ascending company_code.
+
+
+
+Solution : 
+
+SELECT C.Company_code,C.Founder,COUNT(DISTINCT LM.Lead_Manager_Code),
+COUNT(DISTINCT SM.Senior_Manager_Code),COUNT(DISTINCT M.Manager_Code),
+COUNT(DISTINCT E.Employee_Code)
+FROM Company C
+JOIN Lead_Manager LM ON C.Company_Code = LM.Company_Code
+JOIN Senior_Manager SM ON C.Company_Code = SM.Company_Code AND SM.Lead_Manager_Code = LM.Lead_Manager_Code
+JOIN Manager M ON C.Company_Code = M.Company_Code AND M.Senior_Manager_Code = SM.Senior_Manager_Code AND M.Lead_Manager_Code = LM.Lead_Manager_Code
+JOIN Employee E ON C.Company_Code = E.Company_Code AND M.Senior_Manager_Code = E.Senior_Manager_Code AND M.Lead_Manager_Code = E.Lead_Manager_Code AND M.Manager_Code = E.Manager_Code
+GROUP BY C.Company_code,C.Founder
+order by C.Company_code
